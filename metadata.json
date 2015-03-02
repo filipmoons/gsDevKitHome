@@ -1,0 +1,17 @@
+{
+  "name": "filipmoons-gsdevkithome",
+  "version": "1.0.1",
+  "source": "https://github.com/Yesplan/Yesplan-scripts/tree/master/Opleveringen%20Filip/gsDevKitHome",
+  "author": "Filip Moons",
+  "license": "Apache License, Version 2.0",
+  "summary": "Installing gsDevKitHome",
+  "issues_url": "http://www.filipmoons.com/",
+  "description": "More information at https://github.com/GsDevKit/gsDevKitHome.",
+  "project_page": "https://github.com/Yesplan/Yesplan-scripts/tree/master/Opleveringen%20Filip/gsDevKitHome",
+  "dependencies": [
+
+  ],
+  "types": [
+
+  ]
+}

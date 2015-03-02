@@ -1,0 +1,44 @@
+USER=vagrant
+source /opt/gemstone/product/seaside/defSeaside
+startnet
+startGemstone
+topaz -l -T100000 << EOF
+set gemstone seaside
+set user DataCurator pass swordfish
+login
+run
+Gofer new
+  package: 'GsUpgrader-Core';
+  url: 'http://ss3.gemtalksystems.com/ss/gsUpgrader';
+  load.
+(Smalltalk at: #GsUpgrader) upgradeGLASS1.
+Transcript show: 'bar'.
+GsDeployer deploy: [
+  Metacello new
+    baseline: 'Seaside3';
+    repository: 'github://GsDevKit/Seaside31:gs_master/repository';
+    onLock: [:ex | ex honor];
+    load: 'CI' ].
+%
+run
+Transcript show: 'FOO <%= @service %>'.
+'<%= @service %>' = 'Zinc' ifTrue:[WAGemStoneRunSeasideGems default
+	name: 'Zinc';
+	adaptorClass: WAGsZincAdaptor;
+	ports: #(<%= @ports %>)].
+'<%= @service %>' = 'Swazoo' ifTrue:[WAGemStoneRunSeasideGems default
+	name: 'Swazoo';
+	adaptorClass: WAGsSwazooAdaptor;
+	ports: #(<%= @ports %>)].
+
+'<%= @service %>' = 'FastCGI' ifTrue:[WAGemStoneRunSeasideGems default
+	name: 'FastCGI';
+	adaptorClass: WAFastCGIAdaptor;
+	ports: #(<%= @ports %>)].
+%
+commit
+logout
+errorCount
+EOF
+runSeasideGems30 start <%= @service %> "<%= @ports %> "
+	
